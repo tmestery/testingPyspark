@@ -1,9 +1,10 @@
+import json
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
 
 # I/O options: https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/io.html
-df = spark.read.csv('/path/to/your/input/file')
+df = spark.read.csv('data/sample_data.csv')
 
 # Show a preview
 df.show()
@@ -35,13 +36,14 @@ df.count()
 len(df.columns)
 
 # Write output to disk
-df.write.csv('/path/to/your/output/file')
+df.write.csv('data/output')
 
 # Get results (WARNING: in-memory) as list of PySpark Rows
 df = df.collect()
 
-# Get results (WARNING: in-memory) as list of Python dicts
-dicts = [row.asDict(recursive=True) for row in df.collect()]
+# # Get results (WARNING: in-memory) as list of Python dicts
+# rows = df.collect()
+# dicts = [row.asDict(recursive=True) for row in rows]
 
-# Convert (WARNING: in-memory) to Pandas DataFrame
-df = df.toPandas()
+# # Convert (WARNING: in-memory) to Pandas DataFrame
+# df = df.toPandas()
